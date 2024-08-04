@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<body>
+    <form>
+        <div class="form-group">
+            <label for="file">Select a file:</label>
+            <input type="file" id="file" name="file" class="form-control" />
+        </div>
+        <div id="fileNameDisplay"></div>
+    </form>
+
+    <script>
+        document.getElementById('file').addEventListener('change', function (event) {
+            var fileInput = event.target;
+            var fileNameDisplay = document.getElementById('fileNameDisplay');
+            if (fileInput.files && fileInput.files.length > 0) {
+                var fileName = fileInput.files[0].name;
+                fileNameDisplay.textContent = 'Selected file: ' + fileName;
+            } else {
+                fileNameDisplay.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>

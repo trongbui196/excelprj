@@ -1,0 +1,189 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|c:\\users\\an\\desktop\\trongd\\exccel2\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|C:\\Users\\An\\Desktop\\TrongD\\exccel2\\views\\home\\tessting.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|solutionrelative:views\\home\\tessting.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|C:\\Users\\An\\Desktop\\TrongD\\exccel2\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|C:\\Users\\An\\Desktop\\TrongD\\exccel2\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|c:\\users\\an\\desktop\\trongd\\exccel2\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|C:\\Users\\An\\Desktop\\TrongD\\exccel2\\views\\shared\\_datatable.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|solutionrelative:views\\shared\\_datatable.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|C:\\Users\\An\\Desktop\\TrongD\\exccel2\\models\\exceldatamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|solutionrelative:models\\exceldatamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|C:\\Users\\An\\Desktop\\TrongD\\exccel2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|C:\\Users\\An\\Desktop\\TrongD\\exccel2\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|solutionrelative:views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|C:\\Users\\An\\Desktop\\TrongD\\exccel2\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E22CE4A4-41BA-4AEA-BC16-3A6A2791FF42}|exccel2.csproj|solutionrelative:views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "wwwroot\\css\\site.css",
+              "ViewState": "AQIAAHIAAAAAAAAAAAAAAH4AAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-08-04T02:49:23.213Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAACXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-26T10:09:51.733Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_DataTable.cshtml",
+              "DocumentMoniker": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Views\\Shared\\_DataTable.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_DataTable.cshtml",
+              "ToolTip": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Views\\Shared\\_DataTable.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_DataTable.cshtml",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABoAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-28T16:43:59.767Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "tessting.cshtml",
+              "DocumentMoniker": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Views\\Home\\tessting.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\tessting.cshtml",
+              "ToolTip": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Views\\Home\\tessting.cshtml",
+              "RelativeToolTip": "Views\\Home\\tessting.cshtml",
+              "ViewState": "AQIAACoAAAAAAAAAAAAAAGsAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-28T16:22:37.506Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AQIAAGUBAAAAAAAAAAAcwGkBAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-26T10:13:09.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAACXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-28T15:26:23.867Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Exceldatamodel.cs",
+              "DocumentMoniker": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Models\\Exceldatamodel.cs",
+              "RelativeDocumentMoniker": "Models\\Exceldatamodel.cs",
+              "ToolTip": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Models\\Exceldatamodel.cs",
+              "RelativeToolTip": "Models\\Exceldatamodel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-03T06:37:45.394Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAAABUAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-28T16:48:24.391Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "Views\\_ViewImports.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-26T10:11:58.765Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Views\\Shared\\Error.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\Error.cshtml",
+              "ToolTip": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\Views\\Shared\\Error.cshtml",
+              "RelativeToolTip": "Views\\Shared\\Error.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-26T10:12:37.118Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

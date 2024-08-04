@@ -1,0 +1,202 @@
+﻿@{
+    ViewData["Title"] = "Trang chu";
+}
+@model IEnumerable<excelproj.Models.exceldatamodel4>
+@using System.Linq;
+    HLOOKUP    
+<div class="outer-item">
+    @* body *@
+    <div class="inner-content">
+        <div class="inputNbutton1">
+            <form asp-action="Upload5" method="post" enctype="multipart/form-data">
+                <div class="xxx">
+                    <input class="inputfile" id="file" placeholder="Chọn file bài tập" accept=".xls, .xlsx" type="file" name="file" />
+                    <label id="fileNameDisplay" for="file" class="hlabel">Chọn file bài tập</label> <button style="margin-top:5px;height:30px;cursor:pointer;margin-top:4px" type="submit" class="bg-blue">Tải file</button>
+                </div>
+
+            </form>
+
+
+        </div>
+        <div class="inner2">
+
+            @if (Model == null)
+            {
+                <textarea placeholder="Nội dung file" style="min-height:300px;width:100%"></textarea>
+            }
+            @if (Model != null && Model.Any())
+            {
+
+                <table style="text-align:center" width="100%" border="1px solid black" class="table">
+                    <thead>
+                        <tr>
+                            @foreach (var item in ViewBag.Titles)
+                            {
+
+                                <th style="width:20%;">@Html.Raw(@item.Replace(" ", "&nbsp;"))</th>
+
+                            }
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <script>
+                            var employeeData = []; var Ratingboard = [];
+                        </script>
+                        @foreach (var item in Model.Take(Model.Count() - 4))
+                        {
+                            <script>
+
+                                employeeData.push({
+                                    
+                                    name: @Html.Raw(Json.Serialize(item.name)),
+                                    score: @Html.Raw(Json.Serialize(item.score))
+                                                                                                    });
+                            </script>
+
+                            <tr>
+                                
+                                <td>@item.name</td>
+                                <td>@item.score</td>
+                                <td>@item.rank</td>
+                              
+                               
+
+
+                            </tr>
+                        }
+                        <tr style="height:20px"></tr>
+                        <tr>
+                            <td style="font-weight:bold">Diem trung binh</td>
+                        @foreach (var item in Model.Skip(Math.Max(0, Model.Count()-4)).Take(4))
+                        {   
+                                <td>@item.score2</td>
+                                <script>
+                                Ratingboard.push({
+                                    score2:@Html.Raw(Json.Serialize(item.score2)),
+                                    rank2:@Html.Raw(Json.Serialize(item.rank2))
+                                })</script>
+                                        }
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold">Xep hang</td>
+                            @foreach (var item in Model.Skip(Math.Max(0, Model.Count() - 4)).Take(4))
+                            {
+                                <td>@item.rank2</td>
+                            }
+                        </tr>
+                        <script>
+                            console.log()
+                        </script>
+                    </tbody>
+                </table>
+            }
+        </div>
+        <div class="inputNbutton">
+            <select id="options" onchange="showhint()" placeholder="abc">
+                <option value="0" selected="selected">Nhập yêu cầu bài toán</option>
+                <option value="1">HLOOKUP</option>
+
+            </select>
+            <button onclick="data()" style="cursor:pointer" class="bg-blue">Giải</button>
+        </div>
+        <div class="inner4 headinh">
+            <div class="bg-blue">Hướng dẫn giải</div>
+        </div>
+        <div class="inner5">
+            <div id="displayhint" style="min-height:50px;width:100%">
+                Hiển thị gợi ý
+            </div>
+        </div>
+        <div class="inner6 headinh">
+            <div class="bg-blue">Nếu chưa biết cách làm, tham khảo đáp án dưới đây</div>
+        </div>
+        <div class="inner6">
+            <div style="width:100%" id="displayanswer">Đáp án</div>
+        </div>
+    </div>
+</div>
+<div id="trongbui"></div>
+<script>
+    document.getElementById('file').addEventListener('change', function (event) {
+        var fileInput = event.target;
+        var fileNameDisplay = document.getElementById('fileNameDisplay');
+        if (fileInput.files && fileInput.files.length > 0) {
+            var fileName = fileInput.files[0].name;
+            fileNameDisplay.textContent = 'Đã chọn file: ' + fileName;
+            console.log(fileName);
+        } else {
+            fileNameDisplay.textContent = 'Chưa chọn file';
+        }
+    });
+    function showhint() {
+        var select = document.getElementById('options');
+        var display = document.getElementById('displayhint');
+        switch (select.value) {
+            case '0':
+                display.innerHTML = 'Chọn yêu cầu bài toán'; break;
+            case '1':
+
+                display.innerHTML = '=HLOOKUP(lookup_value,table_array,col_index_num,[range_lookup])<br><span style="color:pink">lookup_value</span>: Giá trị dùng để dò tìm<br><span style="color:limegreen">table_array</span>: Bảng chứa giá trị cần dò tìm, để ở dạng giá trị tuyệt đối với dấu $ đằng trước, ví dụ: $A$3:$E$40<br>row_index_num: Thứ tự của hàng chứa giá trị dò tìm trên table_array<br><span style="color:yellow">range_lookup</span>: Là phạm vi tìm kiếm, TRUE tương đương với 1 (dò tìm tương đối), FALSE tương đương với 0 (dò tìm tuyệt đối).Tham số này không bắt buộc phải luôn có trong công thức.';
+                var tab = document.querySelector('.table');
+                var rows = tab.rows;
+                rows[1].cells[1].style.backgroundColor = 'pink';
+                for (let i = rows.length - 2; i < rows.length; i++) {
+                    const cells = rows[i].cells;
+                    for (let j = 1; j <= 4; j++) {
+                        cells[j].style.backgroundColor = 'limegreen';
+                        if (i == rows.length-1) { cells[j].style.color = 'yellow'; }
+                    }
+                    
+                }
+                break;
+
+        };
+
+    };
+    function createdata(data,data2) {
+        let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
+        table += "<tr><th>name</th><th>diem</th><th>xep hang</th></tr>";
+        data.forEach(item => {
+            for (let i = 0; i <= 3; i++) {
+                if (item.score >= data2[i].score2) {
+                    var ranks = data2[i].rank2;
+                }
+            }
+           table += `
+                        <tr>
+                                
+                                <td>${item.name}</td>
+                                <td>${item.score}</td>
+                                <td>${ranks}</td>
+
+                            </tr>
+                    `;
+        });
+        data2.forEach(item2 => {
+            console.log(item2);
+        })
+        table += "</table>";
+        return table;
+
+    };
+    function data() {
+        var displayans = document.getElementById('displayanswer');
+        var option = document.getElementById('options').value;
+        switch (option) {
+            case '1':
+
+                displayans.innerHTML = createdata(employeeData,Ratingboard) + 'Tại ô đầu tiên của cột Xếp loại điểm trung bình cho các học sinh, chúng ta nhập công thức nhập ở ô C3 là : =HLOOKUP(B3,$A$9:$E$10,2,1), sau đó nhấn Enter.';
+                break;
+
+        }
+
+    };
+
+
+</script>
+
+
+
+
+

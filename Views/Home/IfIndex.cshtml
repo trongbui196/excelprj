@@ -1,0 +1,170 @@
+﻿@{
+    ViewData["Title"] = "Trang phu";
+}
+@model IEnumerable<excelproj.Models.exceldatamodel2>
+
+    IF CO BAN
+<div class="outer-item">
+    @* body *@
+    <div class="inner-content">
+        <div class="inputNbutton1">
+            <form asp-action="Upload2" method="post" enctype="multipart/form-data">
+                <div class="xxx">
+                    <input class="inputfile" id="file1" placeholder="Chọn file bài tập" accept=".xls, .xlsx" type="file" name="file1" />
+                    <label id="fileNameDisplay1" for="file1" class="hlabel">Chọn file bài tập</label> <button style="margin-top:5px;height:30px;cursor:pointer;margin-top:4px" type="submit" class="bg-blue">Tải file</button>
+                </div>
+
+            </form>
+
+
+        </div>
+        <div class="inner2">
+
+            @if (Model == null)
+            {   <script>
+                console.log("empty obj");
+            </script>
+                <textarea placeholder="Nội dung file" style="min-height:300px;width:100%"></textarea>
+            }
+            @if (Model != null && Model.Any())
+            {
+
+                <table width="100%" border="1px solid black" class="table">
+                    <thead>
+                        <tr>
+                            @foreach (var item in ViewBag.Titles)
+                            {
+                                <th>@item</th>
+
+                            }
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <script>
+                            var employeeData = [];
+                        </script>
+                        @foreach (var item in Model)
+                        {
+                            <script>
+
+                                employeeData.push({
+                                    stt: @Html.Raw(Json.Serialize(item.stt)),
+                                    mach: @Html.Raw(Json.Serialize(item.mach)),
+                                    zone: @Html.Raw(Json.Serialize(item.zone)),
+                                    sale: @Html.Raw(Json.Serialize(item.sale)),
+                                    rank: @Html.Raw(Json.Serialize(item.rank))
+                                                                    });
+                            </script>
+
+                            <tr>
+                                <td>@item.stt</td>
+                                <td>@item.mach</td>
+                                <td>@item.zone</td>
+                                <td>@item.sale</td>
+                                <td>@item.rank</td>
+                                
+
+                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+        <div class="inputNbutton">
+            <select id="options" onchange="showhint()" placeholder="abc">
+                <option value="0" selected="selected">Nhập yêu cầu bài toán</option>
+                <option value="1">IF cơ bản</option>
+                
+            </select>
+            <button onclick="data()" style="cursor:pointer" class="bg-blue">Giải</button>
+        </div>
+        <div class="inner4 headinh">
+            <div class="bg-blue">Hướng dẫn giải</div>
+        </div>
+        <div class="inner5">
+            <div id="displayhint" style="min-height:50px;width:100%">
+                Hiển thị gợi ý
+            </div>
+        </div>
+        <div class="inner6 headinh">
+            <div class="bg-blue">Nếu chưa biết cách làm, tham khảo đáp án dưới đây</div>
+        </div>
+        <div class="inner6">
+            <div style="width:100%" id="displayanswer">Đáp án</div>
+        </div>
+    </div>
+</div>
+<div id="trongbui"></div>
+<script>
+    document.getElementById('file1').addEventListener('change', function (event) {
+        var fileInput = event.target;
+        var fileNameDisplay = document.getElementById('fileNameDisplay1');
+        if (fileInput.files && fileInput.files.length > 0) {
+            var fileName = fileInput.files[0].name;
+            fileNameDisplay.textContent = 'Đã chọn file: ' + fileName;
+            console.log(fileName);
+        } else {
+            fileNameDisplay.textContent = 'Chưa chọn file';
+        }
+    });
+    function showhint() {
+        var select = document.getElementById('options');
+        var display = document.getElementById('displayhint');
+        switch(select.value){
+            case '0':
+                display.innerHTML = 'Chọn yêu cầu bài toán'; break;
+            case '1':
+                display.innerHTML = '<p>=IF (điều kiện, giá trị đúng, giá trị sai)</p><p> = IF(<span style="color:#36C2CE" > Doanh số </span>>= 300, "Đạt", "Không đạt") </p>';
+                var tab = document.querySelector('.table');
+                var rows = tab.rows;
+                for (let i = 1; i < rows.length; i++) {
+                    const cells = rows[i].cells;
+                    if (cells.length > 3) {
+                        cells[3].style.backgroundColor = '#36C2CE';
+                    }
+                }
+                break;
+        }
+        };
+
+    
+    function createdata(data) {
+        let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
+        table += "<tr><th>stt</th><th>Ma cua hang</th><th>Khu vuc</th><th>doanh so</th><th>xep loai</th>";
+        data.forEach(item => {
+            let rank = item.sale >= 300 ? 'đạt' : 'không đạt';
+            table += `
+                    <tr>
+                            <td>${item.stt}</td>
+                            <td>${item.mach}</td>
+                            <td>${item.zone}</td>
+                            <td>${item.sale}</td>
+                            <td>${rank}</td>
+
+                        </tr>
+                `;
+        });
+        table += "</table>";
+        return table;
+
+    };
+    function data() {
+        var displayans = document.getElementById('displayanswer');
+        var option = document.getElementById('options').value;
+        if (option == 1) {
+               displayans.innerHTML = createdata(employeeData);
+               
+        }
+        
+
+    };
+   
+    
+</script>
+
+
+
+
+

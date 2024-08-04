@@ -1,0 +1,120 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8">
+
+</head>
+<div class="banner"><img src="/img/wallpaper.jpg" style="object-fit:cover; width:100%;height:100px" />
+    <div class="navigator">
+        <button style="margin-top:5px;margin-bottom:5px;" class="bg-blue"><a style="text-decoration:none" asp-action="Index">Trang chu</a></button>
+        <button style="margin-top:5px;margin-bottom:5px;" class="bg-blue"><a style="text-decoration:none" asp-action="tessting">Giai excel</a></button>
+    </div>
+</div>
+
+<div class="outer-grid">
+    
+
+    <div class="outer-item bg-white">Các dạng bài tập excel thường gặp</div>
+    <div class="outer-item bg-blue" style="vertical-align:middle"><h1 class="h1h">GIẢI BÀI TẬP EXCEL</h1></div>
+    <div class="outer-item list-item bg-blue">
+        <div><a style="text-decoration:none" asp-action="Index">Luong co ban</a></div>
+        <div><a style="text-decoration:none" asp-action="IfIndex">If</a></div>
+
+        <div><a style="text-decoration:none" asp-action="IfAdvanced">if advanced</a></div>
+        <div><a style="text-decoration:none" asp-action="Hlookup">Hlookup</a></div>
+        <div><a style ="text-decoration:none" asp-action="Vlookup">Vlookup</a></div>
+        <div><a style="text-decoration:none" asp-action="tessting">testing</a></div>
+
+    </div>
+    <div class="outer-item">
+        @* body *@@RenderBody()
+        @* <div class="inner-content">
+            <div class="inputNbutton1">
+                <form asp-action="Upload" method="post" enctype="multipart/form-data">
+                    <div class="xxx">
+                        <input class="inputfile" id="file" placeholder="Chọn file bài tập" accept=".xls, .xlsx" type="file" name="file" />
+                        <label id="fileNameDisplay" for="file" class="hlabel">Chọn file bài tập</label> <button style="margin-top:5px;height:30px;cursor:pointer;margin-top:4px" type="submit" class="bg-blue">Tải file</button>
+                    </div>
+
+                </form>
+
+
+            </div>
+            <div class="inner2">
+
+                @if (Model == null)
+                {
+                    <textarea placeholder="Nội dung file" style="min-height:300px;width:100%"></textarea>
+                }
+                @if (Model != null && Model.Any())
+                {
+
+                    <table border="1px solid black" class="table">
+                        <thead>
+                            <tr>
+                                @foreach (var item in ViewBag.Titles)
+                                {
+                                    <th>@item</th>
+
+                                }
+                                <!-- Add other columns as needed -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <script>
+                                var employeeData = [];
+                            </script>
+                            @foreach (var item in Model)
+                            {
+                                <script>
+
+                                    employeeData.push({
+                                        stt: @Html.Raw(Json.Serialize(item.stt)),
+                                        name: @Html.Raw(Json.Serialize(item.name)),
+                                        id: @Html.Raw(Json.Serialize(item.id)),
+                                        sex: @Html.Raw(Json.Serialize(item.sex)),
+                                        department: @Html.Raw(Json.Serialize(item.department)),
+                                        salary: @Html.Raw(Json.Serialize(item.salary)),
+                                        netsalary: @Html.Raw(Json.Serialize(item.netsalary))
+                                                                        });
+                                </script>
+
+                                <tr>
+                                    <td>@item.stt</td>
+                                    <td>@item.name</td>
+                                    <td>@item.id</td>
+                                    <td>@item.sex</td>
+                                    <td>@item.department</td>
+                                    <td>@item.salary</td>
+                                    <td>@item.netsalary</td>
+
+                                    <!-- Add other columns as needed -->
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+            <div class="inputNbutton">
+                <select id="options" onchange="showhint()" placeholder="abc">
+                    <option value="0" selected="selected">Nhập yêu cầu bài toán</option>
+                    <option value="1">Tính lương thực lãnh</option>
+                    <option value="2">Tính lương theo phòng ban</option>
+
+                </select>
+                <button onclick="data()" style="cursor:pointer" class="bg-blue">Giải</button>
+            </div>
+            <div class="inner4 headinh">
+                <div class="bg-blue">Hướng dẫn giải</div>
+            </div>
+            <div class="inner5">
+                <div id="displayhint" style="min-height:50px;width:100%">
+                    Hiển thị gợi ý
+                </div>
+            </div>
+            <div class="inner6 headinh">
+                <div class="bg-blue">Nếu chưa biết cách làm, tham khảo đáp án dưới đây</div>
+            </div>
+            <div class="inner6">
+                <div style="width:100%" id="displayanswer">Đáp án</div>
+            </div>
+        </div> *@

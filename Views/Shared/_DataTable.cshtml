@@ -1,0 +1,31 @@
+﻿@model IEnumerable<excelproj.Models.Exceldatamodel>
+
+<table>
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Sex</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Net Salary</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.stt</td>
+                <td>@item.name</td>
+                <td>@item.id</td>
+                <td>@item.sex</td>
+                <td>@item.department</td>
+                <td>@item.salary</td>
+                <td>@item.netsalary</td>
+                <td>@item.slr2</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\exccel2.props" />
+</Project>

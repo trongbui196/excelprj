@@ -1,0 +1,133 @@
+body {
+    margin: 5% auto;
+    width: 80%;
+    justify-content: center
+}
+
+.outer-grid {
+    min-width: 600px;
+    width: 50%;
+    margin: auto;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 25% 1fr;
+    grid-template-rows: 85px auto;
+    column-gap: 10px;
+}
+
+
+.inner-content div {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.bg-white {
+    border-radius: 10px 10px 0px 0px;
+    border: 1px solid #0094ff;
+    color: #0036cd;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.bg-blue {
+    border: 1px solid #0094ff;
+    background-color: #deeaf6;
+    color: #0036cd;
+    border-radius: 10px;
+}
+
+.outer-item {
+    margin-bottom: 10px;
+}
+
+.h1h {
+    margin: auto;
+    text-align: center;
+    line-height: 65px;
+    vertical-align: middle
+}
+
+.inputNbutton {
+    width: 100%;
+}
+
+.inputNbutton1 {
+    width: 100%;
+    margin-top: 45px;
+}
+
+.inputNbutton input, select {
+    width: 80%;
+    height: 40px;
+}
+
+.inputNbutton button {
+    width: 19%;
+    height: 40px
+}
+
+.headinh {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.list-item {
+    padding: 5px;
+    font-weight: bold;
+    margin-top: 5px;
+    border-radius: 0px;
+}
+
+    .list-item div {
+        margin-bottom: 5px;
+    }
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+    .inputfile + hlabel {
+        font-size: 1.25em;
+        font-weight: 700;
+        color: white;
+        background-color: black;
+        display: inline;
+        cursor: pointer;
+        line-height: 40px;
+        border: 1px solid black;
+    }
+
+        .inputfile:focus + hlabel,
+        .inputfile + hlabel:hover {
+            background-color: red;
+        }
+
+.xxx {
+    display: block;
+    margin: 15px 5px;
+}
+
+    .xxx label {
+        border: 1px solid black;
+        padding: 5px;
+        margin-bottom: 5px;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+.banner{
+    min-width:600px;
+    width:50%;
+    min-height:100px;
+    margin:0 auto;
+}
+.navigator{
+    text-align:right;
+}
