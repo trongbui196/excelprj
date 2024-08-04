@@ -1,9 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "Trang chu";
+    ViewData["Title"] = "Hlookup - EXCEL";
 }
 @model IEnumerable<excelproj.Models.exceldatamodel4>
 @using System.Linq;
-    HLOOKUP    
+HLOOKUP    
 <div class="outer-item">
     @* body *@
     <div class="inner-content">
@@ -13,145 +13,35 @@
             <button style="margin-top:5px;height:30px;cursor:pointer;margin-top:4px" class="bg-blue" id="uploadButton">Tải file</button>
         </div>
         <div style="min-height:300px;width:100%;border:1px solid black" class="inner2" id="dataDiv">
-            @if (Model != null)
-            {
-                <h2>Data</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Ten</th>
-                            <th>Diem</th>
-                            <th>Xep hang</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.stt</td>
-                                <td>@item.name</td>
-                                <td>@item.score</td>
-                                <td>@item.rank</td>
-                            </tr>
-                        }
-                        @* <tr>
-                            <td>Diem 2</td>
-                            @foreach(var item in Model.Take(4))
-                            {
-                                <td>@item.score2</td>
-                            }
-                        </tr>
-                        <tr>
-                            <td>Xep hang 2</td>
-                            @foreach (var item in Model.Take(4))
-                            {
-                                <td>@item.rank2</td>
-                            }
-                        </tr> *@
-                    </tbody>
-                </table>
-            }
+            
         </div>
-        @* <div class="inner2">
-
-            @if (Model == null)
-            {
-                <textarea placeholder="Nội dung file" style="min-height:300px;width:100%"></textarea>
-            }
-            @if (Model != null && Model.Any())
-            {
-
-                <table style="text-align:center" width="100%" border="1px solid black" class="table">
-                    <thead>
-                        <tr>
-                            @foreach (var item in ViewBag.Titles)
-                            {
-
-                                <th style="width:20%;">@Html.Raw(@item.Replace(" ", "&nbsp;"))</th>
-
-                            }
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <script>
-                            var employeeData = []; var Ratingboard = [];
-                        </script>
-                        @foreach (var item in Model.Take(Model.Count() - 4))
-                        {
-                            <script>
-
-                                employeeData.push({
-                                    
-                                    name: @Html.Raw(Json.Serialize(item.name)),
-                                    score: @Html.Raw(Json.Serialize(item.score))
-                                                                                                    });
-                            </script>
-
-                            <tr>
-                                
-                                <td>@item.name</td>
-                                <td>@item.score</td>
-                                <td>@item.rank</td>
-                              
-                               
-
-
-                            </tr>
-                        }
-                        <tr style="height:20px"></tr>
-                        <tr>
-                            <td style="font-weight:bold">Diem trung binh</td>
-                        @foreach (var item in Model.Skip(Math.Max(0, Model.Count()-4)).Take(4))
-                        {   
-                                <td>@item.score2</td>
-                                <script>
-                                Ratingboard.push({
-                                    score2:@Html.Raw(Json.Serialize(item.score2)),
-                                    rank2:@Html.Raw(Json.Serialize(item.rank2))
-                                })</script>
-                                        }
-                        </tr>
-                        <tr>
-                            <td style="font-weight:bold">Xep hang</td>
-                            @foreach (var item in Model.Skip(Math.Max(0, Model.Count() - 4)).Take(4))
-                            {
-                                <td>@item.rank2</td>
-                            }
-                        </tr>
-                        <script>
-                            console.log()
-                        </script>
-                    </tbody>
-                </table>
-            }
-        </div> *@
+       
         <div class="inputNbutton">
             <select id="options" onchange="showhint()" placeholder="abc">
-                <option value="0" selected="selected">Nhập yêu cầu bài toán</option>
+                <option value="0" selected="selected">Chọn bài toán</option>
                 <option value="1">HLOOKUP</option>
 
             </select>
-            <button onclick="data()" style="cursor:pointer" class="bg-blue">Giải</button>
+            
         </div>
         <div class="inner4 headinh">
             <div class="bg-blue">Hướng dẫn giải</div>
         </div>
         <div class="inner5">
-            <div id="displayhint" style="min-height:50px;width:100%">
+            <div id="displayhint" style="min-height:100px;width:100%">
                 Hiển thị gợi ý
             </div>
 
-            <div style="position:relative">
-                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1)" />
-                <button style="bottom:0;position:absolute; right:0" class="bg-blue" id="executeFormulaButton">Test công thức</button>
+            <div class="inputNbutton" style="position:relative">
+                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1) không nhập dấu =" />
+                <button style="bottom:0;position:absolute; right:0;cursor:pointer" class="bg-blue" id="executeFormulaButton">Test công thức</button>
             </div>
         </div>
         <div class="inner6 headinh">
             <div class="bg-blue">Nếu chưa biết cách làm, tham khảo đáp án dưới đây</div>
         </div>
         <div class="inner6">
+            <button onclick="data()" style="cursor:pointer;height: 40px;width:19%" class="bg-blue">Hiện đáp án</button>
             <div style="width:100%" id="displayanswer">Đáp án</div>
         </div>
     </div>
@@ -177,13 +67,13 @@
                 display.innerHTML = 'Chọn yêu cầu bài toán'; break;
             case '1':
 
-                display.innerHTML = '=HLOOKUP(lookup_value,table_array,col_index_num,[range_lookup])<br><span style="color:pink">lookup_value</span>: Giá trị dùng để dò tìm<br><span style="color:limegreen">table_array</span>: Bảng chứa giá trị cần dò tìm, để ở dạng giá trị tuyệt đối với dấu $ đằng trước, ví dụ: $A$3:$E$40<br>row_index_num: Thứ tự của hàng chứa giá trị dò tìm trên table_array<br><span style="color:yellow">range_lookup</span>: Là phạm vi tìm kiếm, TRUE tương đương với 1 (dò tìm tương đối), FALSE tương đương với 0 (dò tìm tuyệt đối).Tham số này không bắt buộc phải luôn có trong công thức.';
+                display.innerHTML = '=HLOOKUP(lookup_value,table_array,col_index_num,[range_lookup])<br><span style="color:pink">lookup_value</span>: Giá trị dùng để dò tìm<br><span style="color:limegreen">table_array</span>: Bảng chứa giá trị cần dò tìm, để ở dạng giá trị tuyệt đối với dấu $ đằng trước, ví dụ: $A$3:$E$40<br><span style="color:yellow">row_index_num</span>: Thứ tự của hàng chứa giá trị dò tìm trên table_array<br>range_lookup: Là phạm vi tìm kiếm, TRUE tương đương với 1 (dò tìm tương đối), FALSE tương đương với 0 (dò tìm tuyệt đối).Tham số này không bắt buộc phải luôn có trong công thức.';
                 var tab = document.querySelector('.table');
                 var rows = tab.rows;
-                rows[1].cells[1].style.backgroundColor = 'pink';
+                rows[2].cells[3].style.backgroundColor = 'pink';
                 for (let i = rows.length - 2; i < rows.length; i++) {
                     const cells = rows[i].cells;
-                    for (let j = 1; j <= 4; j++) {
+                    for (let j = 1; j <= 5; j++) {
                         cells[j].style.backgroundColor = 'limegreen';
                         if (i == rows.length-1) { cells[j].style.color = 'yellow'; }
                     }
@@ -199,7 +89,7 @@
         var formData = new FormData();
         formData.append('file', fileInput.files[0]);
 
-        fetch('@Url.Action("Upload4")', {
+        fetch('@Url.Action("Upload5")', {
             method: 'POST',
             body: formData
         })
@@ -212,7 +102,7 @@
     document.getElementById('executeFormulaButton').addEventListener('click', function () {
         var formulaInput = document.getElementById('formulaInput').value;
 
-        fetch('@Url.Action("ExecuteFormula4")', {
+        fetch('@Url.Action("ExecuteFormula5")', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -225,39 +115,14 @@
             })
             .catch(error => console.error('Error:', error));
     });
-    function createdata(data,data2) {
-        let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
-        table += "<tr><th>name</th><th>diem</th><th>xep hang</th></tr>";
-        data.forEach(item => {
-            for (let i = 0; i <= 3; i++) {
-                if (item.score >= data2[i].score2) {
-                    var ranks = data2[i].rank2;
-                }
-            }
-           table += `
-                        <tr>
-                                
-                                <td>${item.name}</td>
-                                <td>${item.score}</td>
-                                <td>${ranks}</td>
-
-                            </tr>
-                    `;
-        });
-        data2.forEach(item2 => {
-            console.log(item2);
-        })
-        table += "</table>";
-        return table;
-
-    };
+    
     function data() {
         var displayans = document.getElementById('displayanswer');
         var option = document.getElementById('options').value;
         switch (option) {
             case '1':
 
-                displayans.innerHTML = createdata(employeeData,Ratingboard) + 'Tại ô đầu tiên của cột Xếp loại điểm trung bình cho các học sinh, chúng ta nhập công thức nhập ở ô C3 là : =HLOOKUP(B3,$A$9:$E$10,2,1), sau đó nhấn Enter.';
+                displayans.innerHTML = 'Tại ô D2, bạn nhập vào công thức: HLOOKUP($C2, $A$11: $E$12, 2, 1).Đây là công thức dò tìm tương đối, bạn có thể thực hiện dò tìm tuyệt đối nếu muốn(hoặc do bảng xếp loại chưa được sắp xếp theo thứ tự) bằng cách thêm 0 vào công thức như thế này: HLOOKUP($C2, $A$11: $E$12, 2, 1).Nhấn Enter.';
                 break;
 
         }

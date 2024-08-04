@@ -38,8 +38,8 @@ Lương Cơ Bản
             <div id="displayhint" style="min-height:50px;width:100%">
                 Hiển thị gợi ý
             </div>
-            <div style="position:relative">
-                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1)" />
+            <div class="inputNbutton" style="position:relative">
+                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1) không nhập dấu =" />
                 <button style="bottom:0;position:absolute; right:0" class="bg-blue" id="executeFormulaButton">Test công thức</button>
             </div>
         </div>
@@ -80,7 +80,7 @@ Lương Cơ Bản
                 for (let i = 1; i < rows.length; i++) {
                     const cells = rows[i].cells;
                     if (cells.length > 5) {
-                        cells[5].style.backgroundColor = 'red';
+                        cells[6].style.backgroundColor = 'red';
                     }
                 }
                 break;

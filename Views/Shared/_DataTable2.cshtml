@@ -2,6 +2,16 @@
 <table width="100%" border="1px solid black" class="table">
     <thead>
         <tr>
+            <th></th>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+            <td>D</td>
+            <td>E</td>
+            
+        </tr>
+        <tr>
+            <td>1</td>
             <th>STT</th>
             <th>Ma Cua Hang</th>
             <th>Khu Vuc</th>
@@ -10,15 +20,21 @@
         </tr>
     </thead>
     <tbody>
+        @{
+            var row = 2;
+        }
+       
         @foreach(var item in Model)
         {
-            <tr>
+                <tr>
+                    <td>@row</td>
                 <td>@item.stt</td>
                 <td>@item.mach</td>
                 <td>@item.zone</td>
                 <td>@item.sale</td>
                 <td>@item.rank</td>
-            </tr>   
+            </tr>  
+            row++;
         }
     </tbody>
 </table>

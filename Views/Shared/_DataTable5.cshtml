@@ -1,26 +1,19 @@
 ﻿@model IEnumerable<excelproj.Models.exceldatamodel4>
-
 <table border="1px solid black" width="100%" class="table">
     <thead>
-        <tr>
-            <th></th>
+        <td>
             <td>A</td>
-            <td>B</td>
-            <td>C</td>
-            <td>D</td>
-            <td>E</td>
-            <td>F</td>
-            
-        </tr>
+    <td>B</td>
+    <td>C</td>
+    <td>D</td>
+    <td>E</td>
+        </td>
         <tr>
             <td>1</td>
             <th>STT</th>
-            <th>ten</th>
+            <th>Ten</th>
             <th>Diem</th>
             <th>Xep hang</th>
-            <th>Diem</th>
-            <th>Xep hang</th>
-           
         </tr>
     </thead>
     <tbody>
@@ -28,18 +21,32 @@
             var row = 2;
         }
         @foreach (var item in Model)
-        {
+        {   
             <tr>
-                <td>@row</td>
+                <td width="40px">@row</td>
                 <td>@item.stt</td>
                 <td>@item.name</td>
                 <td>@item.score</td>
                 <td>@item.rank</td>
-                <td>@item.score2</td>
-                <td>@item.rank2</td>
-               
             </tr>
             row++;
         }
+        <tr style="height:30px"></tr>
+        <tr>    
+            <td>11</td>
+            <td>Diem 2</td>
+            @foreach (var item in Model.Take(4))
+            {
+                <td>@item.score2</td>
+            }
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>Xep hang 2</td>
+            @foreach (var item in Model.Take(4))
+            {
+                <td>@item.rank2</td>
+            }
+        </tr>
     </tbody>
 </table>

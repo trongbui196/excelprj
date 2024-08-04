@@ -1,22 +1,10 @@
-﻿@* Điều kiện 1: cột B> = 20 và cột C> = 25
-Điều kiện 2: cột B> = 15 và cột C> = 20
-thỏa 1 trong 2 điều kiện => đậu
-=IF(OR(AND(B2>=20;C2>=25);AND(B2>=15;C2>=20));"Đậu";"Trượt")
-
-đánh giá theo tổng điểm
-=IF(SUM(B2:F2)>=120;"Tốt";IF(SUM(B2:F2)>=90;"Đạt yêu cầu";"Kém"))
-
-theo điểm trung bình
-=IF(AVERAGE(B2:F2)>=30;"Tốt";IF(AVERAGE(B2:F2)>=25;"Đạt yêu cầu";"Kém"))
-
-min/max
-=IF(F3=MIN($F$2:$F$6);"Kém nhất";””) *@
+﻿
 @{
-    ViewData["Title"] = "advanced";
+    ViewData["Title"] = "IF lồng nhau";
 }
 @model IEnumerable<excelproj.Models.exceldatamodel3>
 
-    IF NANG CAO
+    IF Nâng cao
 <div class="outer-item">
     @* body *@
     <div class="inner-content">
@@ -49,229 +37,28 @@ min/max
         </div>
         <div class="inner5">
 
-            <div style="position:relative">
-                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1)" />
-                <button style="bottom:0;position:absolute; right:0" class="bg-blue" id="executeFormulaButton">Test công thức</button>
-            </div>
+            
             <div id="displayhint" style="min-height:50px;width:100%">
                 Hiển thị gợi ý
+            </div>
+            <div class="inputNbutton" style="position:relative">
+                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1) không nhập dấu =" />
+                <button style="bottom:0;position:absolute; right:0" class="bg-blue" id="executeFormulaButton">Test công thức</button>
             </div>
         </div>
         <div class="inner6 headinh">
             <div class="bg-blue">Nếu chưa biết cách làm, tham khảo đáp án dưới đây</div>
         </div>
         <div class="inner6">
+
+            <button onclick="data()" style="cursor:pointer;height: 40px;width:19%" class="bg-blue">Hiện đáp án</button>
             <div style="width:100%" id="displayanswer">Đáp án</div>
         </div>
     </div>
 </div>
 <div id="trongbui"></div>
 <script>
-    // document.getElementById('file').addEventListener('change', function (event) {
-    //     var fileInput = event.target;
-    //     var fileNameDisplay = document.getElementById('fileNameDisplay');
-    //     if (fileInput.files && fileInput.files.length > 0) {
-    //         var fileName = fileInput.files[0].name;
-    //         fileNameDisplay.textContent = 'Đã chọn file: ' + fileName;
-    //         console.log(fileName);
-    //     } else {
-    //         fileNameDisplay.textContent = 'Chưa chọn file';
-    //     }
-    // });
-    // function showhint() {
-    //     var select = document.getElementById('options');
-    //     var display = document.getElementById('displayhint');
-    //     switch (select.value) {
-    //         case '0':
-    //             display.innerHTML = 'Chọn yêu cầu bài toán'; break;
-    //         case '1':
-    //             resetcolortable();
-    //             display.innerHTML = 'Điều kiện 1: <span style="color:red">cột điểm 1</span>> = 20 và cột <span style="color:#03346E">điểm 2</span>> = 25<br>Điều kiện 2: <span style="color:red">cột điểm 1</span> > = 15 và <span style="color:#03346E">cột điểm 2</span> > = 20<br>thỏa 1 trong 2 điều kiện => đậu<br>= IF(OR(AND(<span style="color:red">cột điểm 1</span> >= 20; <span style="color:#03346E">cột điểm 2</span> >= 25); AND(<span style="color:red">cột điểm 1</span> >= 15; <span style="color:#03346E">cột điểm 2</span> >= 20)); "Đậu"; "Trượt") ';
-    //             var tab = document.querySelector('.table');
-    //             var rows = tab.rows;
-    //             for (let i = 1; i < rows.length; i++) {
-    //                 const cells = rows[i].cells;
-    //                 if (cells.length > 5) {
-    //                     cells[1].style.backgroundColor = 'red';
-    //                     cells[2].style.backgroundColor = '#03346E';
-    //                 }
-    //             }
-    //             break;
-    //         case '2':
-    //             resetcolortable();
-    //             display.innerHTML = '=IF(SUM(<span style="color:pink">B2:F2</span>)>=120;"Tốt";IF(SUM(<span style="color:pink">B2:F2</span>)>=90;"Đạt yêu cầu";"Kém"))';
-    //             var tab = document.querySelector('.table');
-    //             var rows = tab.rows;
-    //             for (let i = 1; i < 2; i++) {
-    //                 const cells = rows[i].cells;
-    //                 if (cells.length > 6) {
-    //                     cells[1].style.backgroundColor = 'pink';
-    //                     cells[2].style.backgroundColor = 'pink';
-    //                     cells[3].style.backgroundColor = 'pink';
-    //                     cells[4].style.backgroundColor = 'pink';
-    //                     cells[5].style.backgroundColor = 'pink';
-    //                 };
-    //             }; 
-                
-    //             break;
-    //         case '3':
-    //             display.innerHTML = '=IF(AVERAGE(<span style="color:pink">B2:F2</span>)>=30;"Tốt";IF(AVERAGE(<span style="color:pink">B2:F2</span>)>=25;"Đạt yêu cầu";"Kém"))';
-    //             resetcolortable();
-    //             var tab = document.querySelector('.table');
-    //             var rows = tab.rows;
-    //             for (let i = 1; i < 2; i++) {
-    //                 const cells = rows[i].cells;
-    //                 if (cells.length > 6) {
-    //                     cells[1].style.backgroundColor = 'pink';
-    //                     cells[2].style.backgroundColor = 'pink';
-    //                     cells[3].style.backgroundColor = 'pink';
-    //                     cells[4].style.backgroundColor = 'pink';
-    //                     cells[5].style.backgroundColor = 'pink';
-    //                 };
-    //             };
-    //             break;
-
-    //         case '4':
-    //             resetcolortable();
-    //             var tab = document.querySelector('.table');
-    //             var rows = tab.rows;
-    //             display.innerHTML = 'Tìm điểm thấp nhất: =IF(điểm 5=MIN($F$2:$F$6);"Thấp nhất";””)<br>Tìm điểm cao nhất: =IF(điểm 5=MAX($F$2:$F$6);"Cao nhất";””)';
-    //             for (let i = 1; i < rows.length; i++) {
-    //                 const cells = rows[i].cells;
-    //                 if (cells.length > 6) {
-    //                     cells[5].style.backgroundColor = 'red';
-    //                 }
-    //             }
-    //             break;
-    //     };
-
-    // };
-    // function createdata1(data) {
-    //     let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
-    //     table += "<tr><th>ten</th><th>diem1</th><th>diem2</th><th>diem3</th><th>diem4</th><th>diem5</th><th>danh gia</th></tr>";
-    //     data.forEach(item => {
-    //         let rating = (item.diem1 >= 20 && item.diem2 >= 25) || (item.diem1 >= 15 && item.diem2 >= 20) ? 'Đậu' : 'Trượt';
-    //         table += `
-    //                 <tr>
-    //                         <td>${item.Name}</td>
-    //                         <td>${item.diem1}</td>
-    //                         <td>${item.diem2}</td>
-    //                         <td>${item.diem3}</td>
-    //                             <td>${item.diem4}</td>
-    //                                 <td>${item.diem5}</td>
-    //                                     <td>${rating}</td>
-    //                     </tr>
-    //             `;
-    //     });
-    //     table += "</table>";
-    //     return table;
-
-    // };
-    // function createdata2(data) {
-    //     let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
-    //     table += "<tr><th>ten</th><th>diem1</th><th>diem2</th><th>diem3</th><th>diem4</th><th>diem5</th><th>danh gia</th></tr>";
-    //     data.forEach(item => {
-    //         let values = [item.diem1, item.diem2, item.diem3, item.diem4, item.diem5];
-    //         let sum = values.reduce((a, b) => a + b, 0);
-    //         let rating = sum >= 120 ? 'Tốt' : sum >= 90 ? 'Đạt yêu cầu' : 'Kém';
-    //         table += `
-    //                     <tr>
-    //                             <td>${item.Name}</td>
-    //                             <td>${item.diem1}</td>
-    //                             <td>${item.diem2}</td>
-    //                             <td>${item.diem3}</td>
-    //                                 <td>${item.diem4}</td>
-    //                                     <td>${item.diem5}</td>
-    //                                         <td>${rating}</td>
-    //                         </tr>
-    //                 `;
-    //     });
-    //     table += "</table>";
-    //     return table;
-
-    // };
-    // function createdata3(data) {
-    //     let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
-    //     table += "<tr><th>ten</th><th>diem1</th><th>diem2</th><th>diem3</th><th>diem4</th><th>diem5</th><th>danh gia</th></tr>";
-    //     data.forEach(item => {
-    //         let values = [item.diem1, item.diem2, item.diem3, item.diem4, item.diem5];
-    //         let average = values.reduce((a, b) => a + b, 0)/values.length;
-    //         let rating = average >= 30 ? "Tốt" : average >= 25 ? "Đạt yêu cầu" : "Kém";
-    //         table += `
-    //                     <tr>
-    //                             <td>${item.Name}</td>
-    //                             <td>${item.diem1}</td>
-    //                             <td>${item.diem2}</td>
-    //                             <td>${item.diem3}</td>
-    //                                 <td>${item.diem4}</td>
-    //                                     <td>${item.diem5}</td>
-    //                                         <td>${rating}</td>
-    //                         </tr>
-    //                 `;
-    //     });
-    //     table += "</table>";
-    //     return table;
-
-    // };
-    // function createdata4(data) {
-        
-    //     let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
-    //     table += "<tr><th>ten</th><th>diem1</th><th>diem2</th><th>diem3</th><th>diem4</th><th>diem5</th><th>danh gia</th></tr>";
-    //     let min = data[0].diem5;
-    //     data.forEach(item => {
-    //         if (item.diem5 < min) { min = item.diem5; }
-
-    //         console.log(item.diem5, min);
-    //     });
-    //     data.forEach(item=> {
-    //         let rating = item.diem5==min ? "Thấp nhất" :"";
-    //         table += `
-    //                         <tr>
-    //                                 <td>${item.Name}</td>
-    //                                 <td>${item.diem1}</td>
-    //                                 <td>${item.diem2}</td>
-    //                                 <td>${item.diem3}</td>
-    //                                     <td>${item.diem4}</td>
-    //                                         <td>${item.diem5}</td>
-    //                                             <td>${rating}</td>
-    //                             </tr>
-    //                `;
-    //            });
-    //     table += "</table>";
-    //     return table;
-
-    // };
-    @*  
-        function createdata4(data) {
-            let min = 0;
-            let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
-            table += "<tr><th>ten</th><th>diem1</th><th>diem2</th><th>diem3</th><th>diem4</th><th>diem5</th><th>danh gia</th></tr>";
-            data.forEach(item=>{
-                if (item.diem5 > min) {
-                    min = diem5;
-                }
-                console.log(diem5, min);
-            })
-            data.forEach(item => {
-                let values = [item.diem1, item.diem2, item.diem3, item.diem4, item.diem5];
-                let average = values.reduce((a, b) => a + b, 0) / values.length;
-                let result = average >= 30 ? "Tốt" : average >= 25 ? "Đạt yêu cầu" : "Kém";
-                table += `
-                                <tr>
-                                        <td>${item.Name}</td>
-                                        <td>${item.diem1}</td>
-                                        <td>${item.diem2}</td>
-                                        <td>${item.diem3}</td>
-                                            <td>${item.diem4}</td>
-                                                <td>${item.diem5}</td>
-                                                    <td>${rating}</td>
-                                    </tr>
-                            `;
-            });
-        table += "</table>";
-        return table;
-
-    }; *@
+    
         document.getElementById('fileInput').addEventListener('change', function (event) {
             var fileInput = event.target;
             var fileNameDisplay = document.getElementById('fileNameDisplay');
@@ -290,17 +77,59 @@ min/max
             case '0':
                 display.innerHTML = 'Chọn yêu cầu bài toán'; break;
             case '1':
-                display.innerHTML = '<p>=IF (điều kiện, giá trị đúng, giá trị sai)</p>';
+                resetcolortable();
+                display.innerHTML = 'Điều kiện 1: <span style="color:red">cột điểm 1</span>> = 20 và cột <span style="color:limegreen">điểm 2</span>> = 25<br>Điều kiện 2: <span style="color:red">cột điểm 1</span> > = 15 và <span style="color:limegreen">cột điểm 2</span> > = 20<br>thỏa 1 trong 2 điều kiện => đậu<br> OR(điều kiện 1, điều kiện 2): trả về true nếu 1 trong 2 điều kiện là true <br> AND(điều kiện 1, điều kiện 2): trả về true cả 1 trong 2 điều kiện là true, 1 trong 2 điều kiện là false thì trả về false';
                 var tab = document.querySelector('.table');
                 var rows = tab.rows;
                 for (let i = 1; i < rows.length; i++) {
-                    const cells = rows[i].cells;
-                    if (cells.length > 3) {
-                        cells[3].style.backgroundColor = '#36C2CE';
-                    }
+                    var cells = rows[i].cells;
+                    cells[2].style.backgroundColor = 'red';
+                    cells[3].style.backgroundColor = 'limegreen';
+                   
                 }
                 break;
-        }
+            case '2':
+                resetcolortable();
+                display.innerHTML = '=SUM(A2:A10) Cộng các giá trị trong các ô A2:10.<br>=SUM(A2: A10, C2: C10) Cộng các giá trị trong các ô A2: 10, cũng như các ô C2: C10.';
+                var tab = document.querySelector('.table');
+                var rows = tab.rows;
+                
+                    var cells = rows[2].cells;
+                    
+                    for (let x = 2; x <= 6; x++) {
+                        cells[x].style.backgroundColor = 'red';
+                    }
+                
+
+                break;
+            case '3':
+                display.innerHTML = '=AVERAGE(A2:A6): Trung bình của các số trong các ô từ A2 tới A6.<br>=AVERAGE(A2:A6, 5): Trung bình của các số trong các ô từ A2 tới A6 và số 5.';
+                resetcolortable();
+                var tab = document.querySelector('.table');
+                var rows = tab.rows;
+               
+                    var cells = rows[2].cells;
+               
+
+                for (let x = 2; x <= 6; x++) {
+                    cells[x].style.backgroundColor = 'red';
+                }
+                break;
+
+            case '4':
+                resetcolortable();
+                var tab = document.querySelector('.table');
+                var rows = tab.rows;
+                display.innerHTML = '=MIN(A2:A6): Giá trị nhỏ nhất của các số trong phạm vi A2:A6.<br>=MIN(A2:A6,0): Giá trị nhỏ nhất của các số trong phạm vi A2:A6 và 0.<br>=MAX(A2:A6): Giá trị lớn nhất của các số trong phạm vi A2:A6.<br>=MAX(A2:A6,0): Giá trị lớn nhất của các số trong phạm vi A2:A6 và 0.';
+                for (let i = 1; i < rows.length; i++) {
+                    var cells = rows[i].cells;
+                    
+                        cells[6].style.backgroundColor = 'red';
+                    
+                }
+                break;
+        };
+
     };
     document.getElementById('uploadButton').addEventListener('click', function () {
         var fileInput = document.getElementById('fileInput');
@@ -338,16 +167,16 @@ min/max
         var option = document.getElementById('options').value;
         switch (option) {
             case '1':
-                displayans.innerHTML = createdata1(employeeData);
+                displayans.innerHTML = "=IF(OR(AND(B2>=20,C2>=25),AND(B2>=15,C2>=20)),\"Đậu\",\"Trượt\")";
                 break;
             case '2':
-                displayans.innerHTML = createdata2(employeeData); 
+                displayans.innerHTML = "IF(SUM(<span style=\"color:red\">B2:F2</span>)>=120,\"Tốt\",IF(SUM(<span style=\"color:red\">B2:F2</span>)>=90,\"Đạt yêu cầu\",\"Kém\"))";
                 break;
             case '3':
-                displayans.innerHTML = createdata3(employeeData);
+                displayans.innerHTML = "IF(AVERAGE(<span style=\"color:red\">B2:F2</span>)>=30,\"Tốt\",IF(AVERAGE(<span style=\"color:red\">B2:F2</span>)>=25,\"Đạt yêu cầu\",\"Kém\"))";
                 break;
             case '4':
-                displayans.innerHTML = createdata4(employeeData); 
+                displayans.innerHTML = "Tìm điểm thấp nhất: =IF(F2=MIN($F$2:$F$10),\"Thấp nhất\",\"\")<br>Tìm điểm cao nhất: =IF(F2=MAX($F$2:$F$10),\"Cao nhất\",\"\")";
                 break;
         }
 

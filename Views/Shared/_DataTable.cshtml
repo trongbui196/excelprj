@@ -1,8 +1,18 @@
 ﻿@model IEnumerable<excelproj.Models.Exceldatamodel>
 
-<table width="100%" class="table">
+<table  border="1px solid black" width="100%" class="table">
     <thead>
+        <tr><th></th>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+            <td>D</td>
+            <td>E</td>
+            <td>F</td>
+            <td>G</td>
+            </tr>
         <tr>
+            <td>1</td>
             <th>STT</th>
             <th>Name</th>
             <th>ID</th>
@@ -14,9 +24,13 @@
         </tr>
     </thead>
     <tbody>
+        @{
+            var row = 2;
+        }
         @foreach (var item in Model)
         {
             <tr>
+                <td>@row</td>
                 <td>@item.stt</td>
                 <td>@item.name</td>
                 <td>@item.id</td>
@@ -26,6 +40,7 @@
                 <td>@item.netsalary</td>
                 <td>@item.slr2</td>
             </tr>
+            row++;
         }
     </tbody>
 </table>

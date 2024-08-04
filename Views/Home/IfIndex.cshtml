@@ -1,9 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "IF INDEX";
+    ViewData["Title"] = "IF CƠ BẢN";
 }
 @model IEnumerable<excelproj.Models.exceldatamodel2>
 
-    IF CO BAN
+    IF cơ bản
 <div class="outer-item">
     @* body *@
     <div class="inner-content">
@@ -26,25 +26,27 @@
                 <option value="1">IF cơ bản</option>
                 
             </select>
-            <div style="position:relative">
-                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1)" />
-                <button style="bottom:0;position:absolute; right:0" class="bg-blue" id="executeFormulaButton">Test công thức</button>
-            </div>
+           
             
         </div>
         <div class="inner4 headinh">
             <div class="bg-blue">Hướng dẫn giải</div>
         </div>
         <div class="inner5">
-            <div id="displayhint" style="min-height:50px;width:100%">
+            <div id="displayhint" style="min-height:100px;width:100%">
                 Hiển thị gợi ý
+            </div>
+            <div class="inputNbutton" style="position:relative">
+                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1) không nhập dấu =" />
+                <button style="bottom:0;position:absolute; right:0" class="bg-blue" id="executeFormulaButton">Test công thức</button>
             </div>
         </div>
         <div class="inner6 headinh">
             <div class="bg-blue">Nếu chưa biết cách làm, tham khảo đáp án dưới đây</div>
         </div>
         <div class="inner6">
-            <button onclick="data()" style="cursor:pointer" class="bg-blue">Giải</button>
+
+            <button onclick="data()" style="cursor:pointer;height: 40px;width:19%" class="bg-blue">Hiện đáp án</button>
             <div style="width:100%" id="displayanswer">Đáp án</div>
         </div>
     </div>
@@ -75,7 +77,7 @@
                 for (let i = 1; i < rows.length; i++) {
                     const cells = rows[i].cells;
                     if (cells.length > 3) {
-                        cells[3].style.backgroundColor = '#36C2CE';
+                        cells[4].style.backgroundColor = '#36C2CE';
                     }
                 }
                 break;
@@ -113,26 +115,7 @@
             .catch(error => console.error('Error:', error));
     });
     
-    // function createdata(data) {
-    //     let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
-    //     table += "<tr><th>stt</th><th>Ma cua hang</th><th>Khu vuc</th><th>doanh so</th><th>xep loai</th>";
-    //     data.forEach(item => {
-    //         let rank = item.sale >= 300 ? 'đạt' : 'không đạt';
-    //         table += `
-    //                 <tr>
-    //                         <td>${item.stt}</td>
-    //                         <td>${item.mach}</td>
-    //                         <td>${item.zone}</td>
-    //                         <td>${item.sale}</td>
-    //                         <td>${rank}</td>
-
-    //                     </tr>
-    //             `;
-    //     });
-    //     table += "</table>";
-    //     return table;
-
-    // };
+    
     function data() {
         var displayans = document.getElementById('displayanswer');
         var option = document.getElementById('options').value;

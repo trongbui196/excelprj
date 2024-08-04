@@ -17,21 +17,21 @@
         </div>
         <div class="inputNbutton">
             <select id="options" onchange="showhint()" placeholder="abc">
-                <option value="0" selected="selected">Nhập yêu cầu bài toán</option>
+                <option value="0" selected="selected">Chọn bài toán</option>
                 <option value="1">VLOOKUP</option>
 
             </select>
-            <button onclick="data()" style="cursor:pointer" class="bg-blue">Giải</button>
+            
         </div>
         <div class="inner4 headinh">
             <div class="bg-blue">Hướng dẫn giải</div>
         </div>
         <div class="inner5">
-            <div id="displayhint" style="min-height:50px;width:100%">
+            <div id="displayhint" style="min-height:100px;width:100%">
                 Hiển thị gợi ý
             </div>
-            <div style="position:relative">
-                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1)" />
+            <div class="inputNbutton" style="position:relative">
+                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1) không nhập dấu =" />
                 <button style="bottom:0;position:absolute; right:0" class="bg-blue" id="executeFormulaButton">Test công thức</button>
             </div>
         </div>
@@ -39,6 +39,7 @@
             <div class="bg-blue">Nếu chưa biết cách làm, tham khảo đáp án dưới đây</div>
         </div>
         <div class="inner6">
+            <button onclick="data()" style="cursor:pointer;height: 40px;width:19%" class="bg-blue">Hiện đáp án</button>
             <div style="width:100%" id="displayanswer">Đáp án</div>
         </div>
     </div>
@@ -64,17 +65,14 @@
                 display.innerHTML = 'Chọn yêu cầu bài toán'; break;
             case '1':
                
-                display.innerHTML = '=VLOOKUP(lookup_value,table_array,col_index_num,[range_lookup])<br><span style="color:pink">lookup_value</span>: Giá trị dùng để dò tìm<br><span style="color:red">table_array</span>: Bảng chứa giá trị cần dò tìm, để ở dạng giá trị tuyệt đối với dấu $ đằng trước, ví dụ: $A$3:$E$40<br>col_index_num: Thứ tự của cột chứa giá trị dò tìm trên table_array<br><span style="color:yellow">range_lookup</span>: Là phạm vi tìm kiếm, TRUE tương đương với 1 (dò tìm tương đối), FALSE tương đương với 0 (dò tìm tuyệt đối).Tham số này không bắt buộc phải luôn có trong công thức.';
+                display.innerHTML = '=VLOOKUP(lookup_value,table_array,col_index_num,[range_lookup])<br><span style="color:pink">lookup_value</span>: Giá trị dùng để dò tìm<br><span style="color:red">table_array</span>: Bảng chứa giá trị cần dò tìm, để ở dạng giá trị tuyệt đối với dấu $ đằng trước, ví dụ: $A$3:$E$40<br><span style="color:yellow">col_index_num</span>: Thứ tự của cột chứa giá trị dò tìm trên table_array<br>range_lookup: Là phạm vi tìm kiếm, TRUE tương đương với 1 (dò tìm tương đối), FALSE tương đương với 0 (dò tìm tuyệt đối).Tham số này không bắt buộc phải luôn có trong công thức.';
                 var tab = document.querySelector('.table');
                 var rows = tab.rows;
-                rows[1].cells[2].style.backgroundColor = 'pink';
-                for (let i = 1; i <= 4; i++) {
-                    const cells = rows[i].cells;
-                    if (cells.length > 5) {
-                        cells[5].style.backgroundColor = 'red';
-                        cells[6].style.backgroundColor = 'red';
-                        cells[6].style.color = 'yellow';
-                    }
+                rows[2].cells[3].style.backgroundColor = 'pink';
+                for (let i = 2; i <= 5; i++) { 
+                    rows[i].cells[5].style.backgroundColor = 'red';
+                    rows[i].cells[6].style.backgroundColor = 'red';
+                    rows[i].cells[6].style.color = 'yellow';
                 }
                 break;
             
@@ -112,36 +110,14 @@
             })
             .catch(error => console.error('Error:', error));
     });
-    function createdata(data) {
-        let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
-        table += "<tr><th>stt</th><th>name</th><th>diem</th><th>xep hang</th></tr>";
-        data.forEach(item => {
-            for (let i = 0; i <= 3; i++) {
-                if (item.score>=data[i].score2) {
-                    var ranks = data[i].rank2;
-            }
-            }
-            table += `
-                    <tr>
-                            <td>${item.stt}</td>
-                            <td>${item.name}</td>
-                            <td>${item.score}</td>
-                            <td>${ranks}</td>
-                                
-                        </tr>
-                `;
-        });
-        table += "</table>";
-        return table;
-
-    };
+   
     function data() {
         var displayans = document.getElementById('displayanswer');
         var option = document.getElementById('options').value;
         switch (option) {
             case '1':
 
-                displayans.innerHTML = createdata(employeeData) + 'Tại ô D6, bạn nhập vào công thức: =VLOOKUP($C6,$A$18:$B$21,2,1). Đây là công thức dò tìm tương đối, bạn có thể thực hiện dò tìm tuyệt đối nếu muốn (hoặc do bảng xếp loại chưa được sắp xếp theo thứ tự) bằng cách thêm 0 vào công thức như thế này: =VLOOKUP($C6,$A$18:$B$21,2,0). Nhấn Enter.';
+                displayans.innerHTML = 'Tại ô D2, bạn nhập vào công thức: VLOOKUP($C2,$E$2:$F$5,2,1). Đây là công thức dò tìm tương đối, bạn có thể thực hiện dò tìm tuyệt đối nếu muốn (hoặc do bảng xếp loại chưa được sắp xếp theo thứ tự) bằng cách thêm 0 vào công thức như thế này: VLOOKUP($C2,$E$2:$F$5,2,0). Nhấn Enter.';
                 break;
             
         }

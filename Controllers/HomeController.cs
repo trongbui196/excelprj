@@ -2,14 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace exccel2.Controllers
 {
     public class HomeController : Controller
     {
-        /*
-      
-         */
         private readonly ILogger<HomeController> _logger;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
@@ -20,7 +18,7 @@ namespace exccel2.Controllers
         }
 
         public IActionResult Index()
-        {   //giao dien tinh luong co ban
+        {
             return View();
         }
         public IActionResult IfIndex()
@@ -582,7 +580,7 @@ namespace exccel2.Controllers
             {
                 case 41:
                     using (var package = new ExcelPackage(new FileInfo(filePath)))
-                    {   //"IF(OR(AND(B2>=20;C2>=25);AND(B2>=15;C2>=20));\"Đậu\";\"Trượt\")")
+                    {   
                         var worksheet = package.Workbook.Worksheets.First();
                         for (int i = 2; i <= worksheet.Dimension.Rows; i++)
                         {
@@ -598,7 +596,7 @@ namespace exccel2.Controllers
                     break;
                 case 42:
                     using (var package = new ExcelPackage(new FileInfo(filePath)))
-                    {   //"IF(OR(AND(B2>=20;C2>=25);AND(B2>=15;C2>=20));\"Đậu\";\"Trượt\")")
+                    {   
                         var worksheet = package.Workbook.Worksheets.First();
                         for (int i = 2; i <= worksheet.Dimension.Rows; i++)
                         {
@@ -614,7 +612,7 @@ namespace exccel2.Controllers
                     break;
                 case 43:
                     using (var package = new ExcelPackage(new FileInfo(filePath)))
-                    {   //"IF(OR(AND(B2>=20;C2>=25);AND(B2>=15;C2>=20));\"Đậu\";\"Trượt\")")
+                    {   
                         var worksheet = package.Workbook.Worksheets.First();
                         for (int i = 2; i <= worksheet.Dimension.Rows; i++)
                         {
@@ -636,6 +634,22 @@ namespace exccel2.Controllers
                         {
 
                             worksheet.Cells[i, 7].Formula = $"IF(F{i}=MIN($F$2:$F${worksheet.Dimension.Rows}),\"Kém nhất\",\" \")";
+                        }
+
+                        package.Workbook.Calculate();
+                        package.Save();
+                        data = ProcessFile3(filePath);
+
+                    }
+                    break;
+                case 45:
+                    using (var package = new ExcelPackage(new FileInfo(filePath)))
+                    {   
+                        var worksheet = package.Workbook.Worksheets.First();
+                        for (int i = 2; i <= worksheet.Dimension.Rows; i++)
+                        {
+
+                            worksheet.Cells[i, 7].Formula = $"IF(F{i}=Max($F$2:$F${worksheet.Dimension.Rows}),\"Cao nhất\",\" \")";
                         }
 
                         package.Workbook.Calculate();
@@ -689,7 +703,7 @@ namespace exccel2.Controllers
             return data;
         }
         // end if co ban
-        // hlookup
+        // vlookup
         [HttpPost]
         public IActionResult Upload4(IFormFile file)
         {
@@ -698,10 +712,10 @@ namespace exccel2.Controllers
                 var filePath = SaveFile(file);
                 var data = ProcessFile4(filePath);
 
-                // Store file path in session for later use
+             
                 HttpContext.Session.SetString("UploadedFilePath", filePath);
 
-                return PartialView("_DataTable4", data); // Return partial view with data
+                return PartialView("_DataTable4", data); 
             }
 
             return BadRequest("No file uploaded.");
@@ -752,7 +766,7 @@ namespace exccel2.Controllers
                 var worksheet = package.Workbook.Worksheets.First();
                 var rowCount = worksheet.Dimension.Rows;
 
-                for (int row = 2; row <= rowCount+2; row++)
+                for (int row = 2; row <= rowCount; row++)
                 {
 
                     var stt = worksheet.Cells[row, 1].Value?.ToString();
@@ -788,10 +802,111 @@ namespace exccel2.Controllers
 
             return data;
         }
+        // end vlookup
+        // hlookup
+        
+        [HttpPost]
+        public IActionResult Upload5(IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                var filePath = SaveFile(file);
+                var data = ProcessFile5(filePath);
+
+               
+                HttpContext.Session.SetString("UploadedFilePath", filePath);
+
+                return PartialView("_DataTable5", data); 
+            }
+
+            return BadRequest("No file uploaded.");
+        }
+
+        [HttpPost]
+        public IActionResult ExecuteFormula5([FromBody] FormulaModel model)
+        {
+            var filePath = HttpContext.Session.GetString("UploadedFilePath");
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return BadRequest("No file uploaded.");
+            }
+
+            var data = ProcessFile5(filePath);
+
+
+            if (ValidateFormula(model.Formula) == 5)
+            {
+                
+                using (var package = new ExcelPackage(new FileInfo(filePath)))
+                {
+                    var worksheet = package.Workbook.Worksheets.First();
+                    for (int i = 2; i <= worksheet.Dimension.Rows; i++)
+                    {
+                        _logger.LogInformation(i.ToString());
+                        worksheet.Cells[i, 4].Formula = $"VLOOKUP(C{i},$F$2:$G$5,2,1)";
+                    }
+
+                    package.Workbook.Calculate();
+                    package.Save();
+                    data = ProcessFile5(filePath);
+
+                }
+            };
+
+
+
+            return PartialView("_DataTable5", data);
+        }
+
+        private List<exceldatamodel4> ProcessFile5(string filePath)
+        {
+            var data = new List<exceldatamodel4>();
+
+            using (var package = new ExcelPackage(new FileInfo(filePath)))
+            {
+                var worksheet = package.Workbook.Worksheets.First();
+                var rowCount = worksheet.Dimension.Rows;
+
+                for (int row = 2; row <= rowCount; row++)
+                {
+
+                    var stt = worksheet.Cells[row, 1].Value?.ToString();
+                    float.TryParse(worksheet.Cells[row, 3].Value?.ToString(), out float dtb);
+                    int.TryParse(stt, out int column1Int);
+                    float.TryParse(worksheet.Cells[row, 6].Value?.ToString(), out float dtb2);
+                    if (row <= 5)
+                    {
+                        data.Add(new exceldatamodel4
+                        {
+                            stt = column1Int,
+                            name = worksheet.Cells[row, 2].Value?.ToString(),
+                            score = dtb,
+                            rank = worksheet.Cells[row, 4].Value?.ToString(),
+                            score2 = dtb2,
+                            rank2 = worksheet.Cells[row, 7].Value?.ToString()
+                        });
+                    }
+                    else
+                    {
+
+                        data.Add(new exceldatamodel4
+                        {
+                            stt = column1Int,
+                            name = worksheet.Cells[row, 2].Value?.ToString(),
+                            score = dtb,
+                            rank = worksheet.Cells[row, 4].Value?.ToString()
+
+                        });
+                    }
+                }
+            }
+
+            return data;
+        }
         // end hlookup
         private int ValidateFormula(string formula)
         {
-
+            //Regex.Replace(formula, @"\s", "").ToLower()
             if (string.IsNullOrEmpty(formula))
             {
                 _logger.LogInformation("null");
@@ -802,58 +917,60 @@ namespace exccel2.Controllers
                 _logger.LogInformation("1");
                 return 1;
             }
-            else if (formula.ToLower() == "sumif(e:e,\"kinh doanh\",g:g)")
+            else if (Regex.Replace(formula, @"\s", "").ToLower() == "sumif(e:e,\"kinhdoanh\",g:g)")
             {
                 _logger.LogInformation("21");
                 return 21;
             }
-            else if (formula.ToLower() == "sumif(e:e,\"kỹ thuật\",g:g)")
+            else if (Regex.Replace(formula, @"\s", "").ToLower() == "sumif(e:e,\"kỹthuật\",g:g)")
             {
                 _logger.LogInformation("22");
                 return 22;
             }
-            else if (formula.ToLower() == "if(d2<=300,\"đạt\",\"không đạt\")")
+            else if (Regex.Replace(formula, @"\s", "").ToLower() == "if(d2<=300,\"đạt\",\"khôngđạt\")")
             {
-                _logger.LogInformation("if co ban oke");
+                
                 return 3; }
-            else if (formula.ToLower() == "abc")
+            else if (Regex.Replace(formula, @"\s", "").ToLower() == "if(or(and(b2>=20,c2>=25),and(b2>=15,c2>=20)),\"đậu\",\"trượt\")")
                
-            {   //IF(OR(AND(B2>=20;C2>=25);AND(B2>=15;C2>=20));\"Đậu\";\"Trượt\")"
+            {   
                 _logger.LogInformation("41");
                 return 41;
             }
-            else if(formula.ToLower()== "abb")
+            else if(Regex.Replace(formula, @"\s", "").ToLower() == "if(sum(b2:f2)>=120,\"tốt\",if(sum(b2:f2)>=90,\"đạtyêucầu\",\"kém\"))")
             {
                 _logger.LogInformation("42");
                 return 42;
             }
-            else if(formula.ToLower()== "abd")
+            else if(Regex.Replace(formula, @"\s", "").ToLower() == "if(average(b2:f2)>=30,\"tốt\",if(average(b2:f2)>=25,\"đạtyêucầu\",\"kém\"))")
             {
-                _logger.LogInformation("43");
+                _logger.LogInformation(Regex.Replace(formula, @"\s", "").ToLower());
                 return 43;
             }
-            else if(formula.ToLower()== "acb")
+            else if(Regex.Replace(formula, @"\s", "").ToLower() == "if(f2=min($f$2:$f$10),\"thấpnhất\",\"\")")
             {
-                _logger.LogInformation("44");
+                _logger.LogInformation(Regex.Replace(formula, @"\s", "").ToLower());
                 return 44;
             }
-            else if(formula.ToLower()== "VLOOKUP($C6,$A$18:$B$21,2,1)" ||formula.ToLower()== "VLOOKUP($C6,$A$18:$B$21,2,0)")
+            else if (Regex.Replace(formula, @"\s", "").ToLower() == "if(f2=max($f$2:$f$10),\"caonhất\",\"\")")
+            {
+                _logger.LogInformation(Regex.Replace(formula, @"\s", "").ToLower());
+                return 45;
+            }
+            else if(Regex.Replace(formula, @"\s", "").ToLower() == "hlookup($c2,$a$11:$e$12,2,1)")
             {
                 _logger.LogInformation("5");
                 return 5;
             }
-            //else if(formula.ToLower()== "HLOOKUP(B3,$A$9:$E$10,2,1)"||formula.ToLower()== "HLOOKUP(B3,$A$9:$E$10,2,0)")
-            //{
-            //    _logger.LogInformation("6");
-            //    return 6;
-            //}
-            else if (formula.ToLower() == "haha")
+            
+            else if (Regex.Replace(formula, @"\s", "").ToLower() == "vlookup($c2,$e$2:$f$5,2,1)")
             {
                 _logger.LogInformation("haha");
                 return 6;
             }
             else {
-                _logger.LogInformation("else 0");
+                
+                _logger.LogInformation(Regex.Replace(formula, @"\s", "").ToLower());
                 return 0;}
                     
               
