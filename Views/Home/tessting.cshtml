@@ -1,123 +1,34 @@
 ﻿@model IEnumerable<excelproj.Models.Exceldatamodel>
 @{
-    ViewData["Title"] = "Excel Data Processing";
+    ViewData["Title"] = "Luong Co Ban";
 }
-tessting
-@* <h1>Excel Data Processing</h1>
+Lương Cơ Bản
 
-<!-- File input for uploading Excel file -->
-<div>
-    <input type="file" id="fileInput" />
-    <button id="uploadButton">Upload</button>
-</div>
-
-<!-- Div to display uploaded data -->
-<div id="dataDiv">
-    @if (Model != null)
-    {
-        <h2>Data</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Name</th>
-                    <th>ID</th>
-                    <th>Sex</th>
-                    <th>Department</th>
-                    <th>Salary</th>
-                    <th>Net Salary</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.stt</td>
-                        <td>@item.name</td>
-                        <td>@item.id</td>
-                        <td>@item.sex</td>
-                        <td>@item.department</td>
-                        <td>@item.salary</td>
-                        <td>@item.netsalary</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-</div>
-
-<!-- Input for formula and button to execute -->
-<div>
-    <input type="text" id="formulaInput" placeholder="Enter formula (e.g., A1+B1)" />
-    <button id="executeFormulaButton">Execute Formula</button>
-</div> *@
 <div class="outer-item">
     @* body *@
     <div class="inner-content">
         <div class="inputNbutton1">
-            <div>
-                <input class="inputfile" type="file" id="fileInput" /> 
-                <label id="fileNameDisplay" for="fileInput" class="hlabel">Chọn file bài tập</label>
-                <button class="bg-blue" id="uploadButton">Upload</button>
-            </div>
+           
                 <div class="xxx">
-                   
-                   
-                    
-                </div>
-
-            
-
-
-        </div>
+                <input class="inputfile" type="file" id="fileInput" />
+                <label id="fileNameDisplay" for="fileInput" class="hlabel">Chọn file bài tập</label>
+                <button style="margin-top:5px;height:30px;cursor:pointer;margin-top:4px" class="bg-blue" id="uploadButton">Tải file</button>
+                  </div> </div>
         <div style="min-height:300px;width:100%;border:1px solid black" class="inner2" id="dataDiv">
-            @if (Model != null)
-            {
-                <h2>Data</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Name</th>
-                            <th>ID</th>
-                            <th>Sex</th>
-                            <th>Department</th>
-                            <th>Salary</th>
-                            <th>Net Salary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.stt</td>
-                                <td>@item.name</td>
-                                <td>@item.id</td>
-                                <td>@item.sex</td>
-                                <td>@item.department</td>
-                                <td>@item.salary</td>
-                                <td>@item.netsalary</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
+            
             
         </div>
-        <div>
-            
-        </div>
+        
         <div class="inputNbutton">
+            <div>
             <select id="options" onchange="showhint()" placeholder="abc">
                 <option value="0" selected="selected">Nhập yêu cầu bài toán</option>
                 <option value="1">Tính lương thực lãnh</option>
                 <option value="2">Tính lương theo phòng ban</option>
 
-            </select>
-            <div>
-                <input type="text" id="formulaInput" placeholder="Enter formula (e.g., A1+B1)" />
-                <button class ="bg-blue" id="executeFormulaButton">Execute Formula</button>
+                </select>
             </div>
+           
             
         </div>
         <div class="inner4 headinh">
@@ -127,12 +38,18 @@ tessting
             <div id="displayhint" style="min-height:50px;width:100%">
                 Hiển thị gợi ý
             </div>
+            <div style="position:relative">
+                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1)" />
+                <button style="bottom:0;position:absolute; right:0" class="bg-blue" id="executeFormulaButton">Test công thức</button>
+            </div>
         </div>
         <div class="inner6 headinh">
             <div class="bg-blue">Nếu chưa biết cách làm, tham khảo đáp án dưới đây</div>
         </div>
         <div class="inner6">
-            <div style="width:100%" id="displayanswer">Đáp án</div>
+            <button class="bg-blue h30" id="ketquabtn">Đáp án</button></div>
+            <div style="width:100%" id="displayanswer">
+
         </div>
     </div>
 </div>
@@ -169,8 +86,7 @@ tessting
                 break;
             case '2':
                
-                display.innerHTML = 'Tính lương từng phòng ban';
-                display.innerHTML = '<p>Công thức: SUMIF(Vùng điều kiện, điều kiện, vùng chứa số cần tính)</p><p>Ví dụ: SUMIF(<span style="color:limegreen">E:E</span>, "Kinh Doanh", <span style="color:pink">G:G</span>) - để tính tổng lương thực lãnh của phòng kinh doanh </p> ';
+                display.innerHTML = 'Tính lương từng phòng ban<br><p>Công thức: SUMIF(Vùng điều kiện, điều kiện, vùng chứa số cần tính)</p> ';
                 var tab = document.querySelector('.table');
                 var rows = tab.rows;
                 for (let i = 1; i < rows.length; i++) {
@@ -203,7 +119,7 @@ tessting
     document.getElementById('executeFormulaButton').addEventListener('click', function () {
             var formulaInput = document.getElementById('formulaInput').value;
 
-            fetch('@Url.Action("ExecuteFormula")', {
+            fetch('@Url.Action("ExecuteFormula1")', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -216,5 +132,16 @@ tessting
                 })
                 .catch(error => console.error('Error:', error));
         });
+    document.getElementById('ketquabtn').addEventListener('click', function (){
+        var option = document.getElementById('options').value;
+        var display = document.getElementById('displayanswer');
+        switch (option) {
+            case '1':
+                display.innerHTML = 'F2*5';
+                break;
+            case '2':
+                display.innerHTML = '<p>Ví dụ: SUMIF(<span style="color:limegreen">E:E</span>, "Kinh Doanh", <span style="color:pink">G:G</span>) - để tính tổng lương thực lãnh của phòng kinh doanh </p>';
+        }
+    });
     </script>
 

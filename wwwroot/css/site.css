@@ -32,6 +32,7 @@ body {
 }
 
 .bg-blue {
+    
     border: 1px solid #0094ff;
     background-color: #deeaf6;
     color: #0036cd;
@@ -61,11 +62,13 @@ body {
 .inputNbutton input, select {
     width: 80%;
     height: 40px;
+    margin: 0;
 }
 
 .inputNbutton button {
     width: 19%;
-    height: 40px
+    height: 40px;
+    margin: 0;
 }
 
 .headinh {
@@ -94,7 +97,7 @@ body {
     z-index: -1;
 }
 
-    .inputfile + hlabel {
+.inputfile  {
         font-size: 1.25em;
         font-weight: 700;
         color: white;
@@ -104,11 +107,16 @@ body {
         line-height: 40px;
         border: 1px solid black;
     }
+.hlabel {
+    cursor: pointer;
+    line-height: 40px;
+    border: 1px solid black;
+}
 
-        .inputfile:focus + hlabel,
-        .inputfile + hlabel:hover {
-            background-color: red;
-        }
+    .inputfile:focus + hlabel,
+    .inputfile + hlabel:hover {
+        background-color: red;
+    }
 
 .xxx {
     display: block;
@@ -130,4 +138,7 @@ body {
 }
 .navigator{
     text-align:right;
+}
+.h30{
+    height:30px;
 }

@@ -7,72 +7,13 @@
 <div class="outer-item">
     @* body *@
     <div class="inner-content">
-        <div class="inputNbutton1">
-            <form asp-action="Upload4" method="post" enctype="multipart/form-data">
-                <div class="xxx">
-                    <input class="inputfile" id="file" placeholder="Chọn file bài tập" accept=".xls, .xlsx" type="file" name="file" />
-                    <label id="fileNameDisplay" for="file" class="hlabel">Chọn file bài tập</label> <button style="margin-top:5px;height:30px;cursor:pointer;margin-top:4px" type="submit" class="bg-blue">Tải file</button>
-                </div>
-
-            </form>
-
-
+        <div class="xxx">
+            <input class="inputfile" type="file" id="fileInput" />
+            <label id="fileNameDisplay" for="fileInput" class="hlabel">Chọn file bài tập</label>
+            <button style="margin-top:5px;height:30px;cursor:pointer;margin-top:4px" class="bg-blue" id="uploadButton">Tải file</button>
         </div>
-        <div class="inner2">
-
-            @if (Model == null)
-            {
-                <textarea placeholder="Nội dung file" style="min-height:300px;width:100%"></textarea>
-            }
-            @if (Model != null && Model.Any())
-            {
-
-                <table width="100%" border="1px solid black" class="table">
-                    <thead>
-                        <tr>
-                            @foreach (var item in ViewBag.Titles)
-                            {
-                                <th>@item</th>
-
-                            }
-                           
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <script>
-                            var employeeData = [];
-                        </script>
-                        @foreach (var item in Model)
-                        {
-                            <script>
-
-                                employeeData.push({
-                                    stt: @Html.Raw(Json.Serialize(item.stt)),
-                                    name: @Html.Raw(Json.Serialize(item.name)),
-                                    score: @Html.Raw(Json.Serialize(item.score)),
-                                    rank: @Html.Raw(Json.Serialize(item.rank)),
-                                    empty: @Html.Raw(Json.Serialize(item.empty)),
-                                    score2: @Html.Raw(Json.Serialize(item.score2)),
-                                    rank2: @Html.Raw(Json.Serialize(item.rank2))
-                                                                    });
-                            </script>
-
-                            <tr>
-                                <td>@item.stt</td>
-                                <td>@item.name</td>
-                                <td>@item.score</td>
-                                <td>@item.rank</td>
-                                <td>@item.empty</td>
-
-                                <td>@item.score2</td>
-                                <td>@item.rank2</td>
-
-                               
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
+        <div style="min-height:300px;width:100%;border:1px solid black" class="inner2" id="dataDiv">
+            
         </div>
         <div class="inputNbutton">
             <select id="options" onchange="showhint()" placeholder="abc">
@@ -89,6 +30,10 @@
             <div id="displayhint" style="min-height:50px;width:100%">
                 Hiển thị gợi ý
             </div>
+            <div style="position:relative">
+                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1)" />
+                <button style="bottom:0;position:absolute; right:0" class="bg-blue" id="executeFormulaButton">Test công thức</button>
+            </div>
         </div>
         <div class="inner6 headinh">
             <div class="bg-blue">Nếu chưa biết cách làm, tham khảo đáp án dưới đây</div>
@@ -100,7 +45,7 @@
 </div>
 <div id="trongbui"></div>
 <script>
-    document.getElementById('file').addEventListener('change', function (event) {
+    document.getElementById('fileInput').addEventListener('change', function (event) {
         var fileInput = event.target;
         var fileNameDisplay = document.getElementById('fileNameDisplay');
         if (fileInput.files && fileInput.files.length > 0) {
@@ -136,6 +81,37 @@
         };
 
     };
+    document.getElementById('uploadButton').addEventListener('click', function () {
+        var fileInput = document.getElementById('fileInput');
+        var formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        fetch('@Url.Action("Upload4")', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('dataDiv').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    });
+    document.getElementById('executeFormulaButton').addEventListener('click', function () {
+        var formulaInput = document.getElementById('formulaInput').value;
+
+        fetch('@Url.Action("ExecuteFormula4")', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ formula: formulaInput })
+        })
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('dataDiv').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    });
     function createdata(data) {
         let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
         table += "<tr><th>stt</th><th>name</th><th>diem</th><th>xep hang</th></tr>";

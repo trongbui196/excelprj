@@ -1,0 +1,28 @@
+﻿@model IEnumerable<excelproj.Models.exceldatamodel3>
+<table width="100%" border="1px solid black" class="table">
+    <thead>
+        <tr>
+            <th>Ten</th>
+            <th>Diem 1</th>
+            <th>Diem 2</th>
+            <th>Diem 3</th>
+            <th>Diem 4</th>
+            <th>Diem 5</th>
+            <th>Danh gia</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.diem1</td>
+                <td>@item.diem2</td>
+                <td>@item.diem3</td>
+                <td>@item.diem4</td>
+                <td>@item.diem5</td>
+                <td>@item.danhgia</td>
+            </tr>
+        }
+    </tbody>
+</table>

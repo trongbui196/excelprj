@@ -257,6 +257,22 @@
       "PackagePath": "staticwebassets\\uploads\\Book1.xlsx"
     },
     {
+      "Id": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\wwwroot\\uploads\\advanced_IF.xlsx",
+      "PackagePath": "staticwebassets\\uploads\\advanced_IF.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\wwwroot\\uploads\\excel_IF_example.xlsx",
+      "PackagePath": "staticwebassets\\uploads\\excel_IF_example.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\wwwroot\\uploads\\hlookup.xlsx",
+      "PackagePath": "staticwebassets\\uploads\\hlookup.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\An\\Desktop\\TrongD\\exccel2\\wwwroot\\uploads\\vlookup.xlsx",
+      "PackagePath": "staticwebassets\\uploads\\vlookup.xlsx"
+    },
+    {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.exccel2.props",
       "PackagePath": "build\\exccel2.props"
     },

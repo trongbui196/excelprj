@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Trang phu";
+    ViewData["Title"] = "IF INDEX";
 }
 @model IEnumerable<excelproj.Models.exceldatamodel2>
 
@@ -7,70 +7,18 @@
 <div class="outer-item">
     @* body *@
     <div class="inner-content">
+
         <div class="inputNbutton1">
-            <form asp-action="Upload2" method="post" enctype="multipart/form-data">
-                <div class="xxx">
-                    <input class="inputfile" id="file1" placeholder="Chọn file bài tập" accept=".xls, .xlsx" type="file" name="file1" />
-                    <label id="fileNameDisplay1" for="file1" class="hlabel">Chọn file bài tập</label> <button style="margin-top:5px;height:30px;cursor:pointer;margin-top:4px" type="submit" class="bg-blue">Tải file</button>
-                </div>
 
-            </form>
-
-
+            <div class="xxx">
+                <input class="inputfile" type="file" id="fileInput" />
+                <label id="fileNameDisplay" for="fileInput" class="hlabel">Chọn file bài tập</label>
+                <button style="margin-top:5px;height:30px;cursor:pointer;margin-top:4px" class="bg-blue" id="uploadButton">Tải file</button>
+            </div>
         </div>
-        <div class="inner2">
+        <div style="min-height:300px;width:100%;border:1px solid black" class="inner2" id="dataDiv">
+            
 
-            @if (Model == null)
-            {   <script>
-                console.log("empty obj");
-            </script>
-                <textarea placeholder="Nội dung file" style="min-height:300px;width:100%"></textarea>
-            }
-            @if (Model != null && Model.Any())
-            {
-
-                <table width="100%" border="1px solid black" class="table">
-                    <thead>
-                        <tr>
-                            @foreach (var item in ViewBag.Titles)
-                            {
-                                <th>@item</th>
-
-                            }
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <script>
-                            var employeeData = [];
-                        </script>
-                        @foreach (var item in Model)
-                        {
-                            <script>
-
-                                employeeData.push({
-                                    stt: @Html.Raw(Json.Serialize(item.stt)),
-                                    mach: @Html.Raw(Json.Serialize(item.mach)),
-                                    zone: @Html.Raw(Json.Serialize(item.zone)),
-                                    sale: @Html.Raw(Json.Serialize(item.sale)),
-                                    rank: @Html.Raw(Json.Serialize(item.rank))
-                                                                    });
-                            </script>
-
-                            <tr>
-                                <td>@item.stt</td>
-                                <td>@item.mach</td>
-                                <td>@item.zone</td>
-                                <td>@item.sale</td>
-                                <td>@item.rank</td>
-                                
-
-                                
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
         </div>
         <div class="inputNbutton">
             <select id="options" onchange="showhint()" placeholder="abc">
@@ -78,7 +26,11 @@
                 <option value="1">IF cơ bản</option>
                 
             </select>
-            <button onclick="data()" style="cursor:pointer" class="bg-blue">Giải</button>
+            <div style="position:relative">
+                <input type="text" id="formulaInput" placeholder="Nhập công thức (vd: A1+B1)" />
+                <button style="bottom:0;position:absolute; right:0" class="bg-blue" id="executeFormulaButton">Test công thức</button>
+            </div>
+            
         </div>
         <div class="inner4 headinh">
             <div class="bg-blue">Hướng dẫn giải</div>
@@ -92,15 +44,16 @@
             <div class="bg-blue">Nếu chưa biết cách làm, tham khảo đáp án dưới đây</div>
         </div>
         <div class="inner6">
+            <button onclick="data()" style="cursor:pointer" class="bg-blue">Giải</button>
             <div style="width:100%" id="displayanswer">Đáp án</div>
         </div>
     </div>
 </div>
 <div id="trongbui"></div>
 <script>
-    document.getElementById('file1').addEventListener('change', function (event) {
+    document.getElementById('fileInput').addEventListener('change', function (event) {
         var fileInput = event.target;
-        var fileNameDisplay = document.getElementById('fileNameDisplay1');
+        var fileNameDisplay = document.getElementById('fileNameDisplay');
         if (fileInput.files && fileInput.files.length > 0) {
             var fileName = fileInput.files[0].name;
             fileNameDisplay.textContent = 'Đã chọn file: ' + fileName;
@@ -116,7 +69,7 @@
             case '0':
                 display.innerHTML = 'Chọn yêu cầu bài toán'; break;
             case '1':
-                display.innerHTML = '<p>=IF (điều kiện, giá trị đúng, giá trị sai)</p><p> = IF(<span style="color:#36C2CE" > Doanh số </span>>= 300, "Đạt", "Không đạt") </p>';
+                display.innerHTML = '<p>=IF (điều kiện, giá trị đúng, giá trị sai)</p>';
                 var tab = document.querySelector('.table');
                 var rows = tab.rows;
                 for (let i = 1; i < rows.length; i++) {
@@ -128,33 +81,63 @@
                 break;
         }
         };
+    document.getElementById('uploadButton').addEventListener('click', function () {
+        var fileInput = document.getElementById('fileInput');
+        var formData = new FormData();
+        formData.append('file', fileInput.files[0]);
 
+        fetch('@Url.Action("Upload2")', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('dataDiv').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    });
+    document.getElementById('executeFormulaButton').addEventListener('click', function () {
+        var formulaInput = document.getElementById('formulaInput').value;
+
+        fetch('@Url.Action("ExecuteFormula2")', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ formula: formulaInput })
+        })
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('dataDiv').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    });
     
-    function createdata(data) {
-        let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
-        table += "<tr><th>stt</th><th>Ma cua hang</th><th>Khu vuc</th><th>doanh so</th><th>xep loai</th>";
-        data.forEach(item => {
-            let rank = item.sale >= 300 ? 'đạt' : 'không đạt';
-            table += `
-                    <tr>
-                            <td>${item.stt}</td>
-                            <td>${item.mach}</td>
-                            <td>${item.zone}</td>
-                            <td>${item.sale}</td>
-                            <td>${rank}</td>
+    // function createdata(data) {
+    //     let table = "<table style='width:100%' border='1px solid black' class='anstable'>";
+    //     table += "<tr><th>stt</th><th>Ma cua hang</th><th>Khu vuc</th><th>doanh so</th><th>xep loai</th>";
+    //     data.forEach(item => {
+    //         let rank = item.sale >= 300 ? 'đạt' : 'không đạt';
+    //         table += `
+    //                 <tr>
+    //                         <td>${item.stt}</td>
+    //                         <td>${item.mach}</td>
+    //                         <td>${item.zone}</td>
+    //                         <td>${item.sale}</td>
+    //                         <td>${rank}</td>
 
-                        </tr>
-                `;
-        });
-        table += "</table>";
-        return table;
+    //                     </tr>
+    //             `;
+    //     });
+    //     table += "</table>";
+    //     return table;
 
-    };
+    // };
     function data() {
         var displayans = document.getElementById('displayanswer');
         var option = document.getElementById('options').value;
         if (option == 1) {
-               displayans.innerHTML = createdata(employeeData);
+            displayans.innerHTML = '<p> = IF(<span style=\"color:#36C2CE\" > D2 </span><= 300, \"Đạt\", \"Không đạt\") </p >';
                
         }
         

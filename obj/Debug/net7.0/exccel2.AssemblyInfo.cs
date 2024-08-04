@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("exccel2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e086c7744f08b5743ed4f667c9034e9f22da7b1f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e8005face931b0b07bb9b40dcf81d317702a5b0")]
 [assembly: System.Reflection.AssemblyProductAttribute("exccel2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("exccel2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
